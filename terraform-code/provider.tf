@@ -15,8 +15,6 @@ provider "aws" {
   access_key = "AWS_ACCESS_KEY_ID"
   secret_key = "AWS_SECRET_ACCESS_KEY"
 
-  ##  access_key = "AKIAZW65LS4PZCGZ4G5R"
-  # secret_key = "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"
 }
 
 
