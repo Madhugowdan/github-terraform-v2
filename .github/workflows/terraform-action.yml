@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform-code
 
     steps:
     - name: Checkout code
@@ -23,19 +27,16 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 0.15.1
-        command: init
-        working-directory: terraform-code
+        run: terraform init    
 
 
     - name: Terraform Plan
       uses: hashicorp/setup-terraform@v1
       with:
-        command: plan
-        working-directory: terraform-code
+        run: terraform plan
 
     - name: Terraform Apply
       uses: hashicorp/setup-terraform@v1
       with:
-        command: apply
-        working-directory: terraform-code
-        auto-approve: true
+        run: terraform apply
+        auto-approve: false
