@@ -22,14 +22,14 @@ variable "instance-type" {
 
 }
 
-variable "AWS_ACCESS_KEY_ID" {
+variable "access_key" {
   type = string
 }
 
-variable "AWS_SECRET_ACCESS_KEY" {
+variable "secret_key" {
   type = string
 }
 
-variable "AWS_REGION" {
+variable "region" {
   type = string
 }

@@ -18,12 +18,17 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v3
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-# 
+        run: |
+          echo "access_key = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> terraform.tfvars
+          echo "secret_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> terraform.tfvars
+          echo "region = ${{ secrets.AWS_REGION }}" >> terraform.tfvars
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ secrets.AWS_REGION }}
+# # 
       # - name: Configure AWS credentials
       #   run: echo ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} ${{ secrets.AWS_REGION }} > ~/.aws/credentials
 
@@ -40,10 +45,10 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init 
-        env:
-          TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+        # env:
+        #   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Terraform Validate
         id: validate
@@ -53,10 +58,10 @@ jobs:
         id: plan
         run: terraform plan -no-color
        # if: github.event_name == 'pull_request'
-        env:
-          TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+        # env:
+        #   TF_VAR_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   aws-region: ${{ secrets.AWS_REGION }}
         continue-on-error: true
 
     #   - uses: actions/github-script@v6
