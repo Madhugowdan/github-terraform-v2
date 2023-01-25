@@ -11,7 +11,7 @@
 # }
 
 provider "aws" {
-  region     = var.region
+  #region     = aws-region
   # access_key = aws-access-key-id
   # secret_key = aws-secret-access-key
 
